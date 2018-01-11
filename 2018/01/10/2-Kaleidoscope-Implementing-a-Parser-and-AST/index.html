@@ -7,18 +7,18 @@
   
   <title>2. Kaleidoscope: Implementing a Parser and AST | LiTong&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
+  <meta name="description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
 <meta name="keywords" content="LLVM Tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2. Kaleidoscope: Implementing a Parser and AST">
 <meta property="og:url" content="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/index.html">
 <meta property="og:site_name" content="LiTong&#39;s Blog">
-<meta property="og:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
+<meta property="og:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-01-11T07:58:58.000Z">
+<meta property="og:updated_time" content="2018-01-11T08:00:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2. Kaleidoscope: Implementing a Parser and AST">
-<meta name="twitter:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
+<meta name="twitter:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
   
     <link rel="alternate" href="/atom.xml" title="LiTong&#39;s Blog" type="application/atom+xml">
   
@@ -88,6 +88,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="2-1-Chapter-2-Introduction"><a href="#2-1-Chapter-2-Introduction" class="headerlink" title="2.1. Chapter 2 Introduction"></a>2.1. Chapter 2 Introduction</h2><p>欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的<a href="http://en.wikipedia.org/wiki/Parsing" target="_blank" rel="noopener">语法分析器</a>。完成语法分析器后，我们将定义并构造<a href="http://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">抽象语法树</a> （AST）。</p>
+<a id="more"></a>
 <!--
 Welcome to Chapter 2 of the “[Implementing a language with LLVM](http://llvm.org/docs/tutorial/index.html)” tutorial. This chapter shows you how to use the lexer, built in [Chapter 1](http://llvm.org/docs/tutorial/LangImpl01.html), to build a full parser for our Kaleidoscope language. Once we have a [parser](http://en.wikipedia.org/wiki/Parsing), we’ll define and build an [Abstract Syntax Tree](http://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST).
 -->
@@ -317,7 +318,7 @@ Here is the code:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjca7exxd0003me5ik4s13p2h" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjca7g61a0003mt5i4uqy6owi" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
