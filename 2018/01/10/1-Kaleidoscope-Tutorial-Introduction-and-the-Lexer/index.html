@@ -5,21 +5,21 @@
   
 
   
-  <title>1. Kaleidoscope: Tutorial Introduction and the Lexer | Hexo</title>
+  <title>1. Kaleidoscope: Tutorial Introduction and the Lexer | LiTong&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.  这篇教程的目标是逐渐展现这">
+  <meta name="description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1. Kaleidoscope: Tutorial Introduction and the Lexer">
 <meta property="og:url" content="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.  这篇教程的目标是逐渐展现这">
+<meta property="og:site_name" content="LiTong&#39;s Blog">
+<meta property="og:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.">
 <meta property="og:locale" content="CN/ENG">
-<meta property="og:updated_time" content="2018-01-10T07:47:46.000Z">
+<meta property="og:updated_time" content="2018-01-11T03:39:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1. Kaleidoscope: Tutorial Introduction and the Lexer">
-<meta name="twitter:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.  这篇教程的目标是逐渐展现这">
+<meta name="twitter:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="LiTong&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -38,7 +38,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">LiTong&#39;s Blog</a>
       </h1>
       
     </div>
@@ -53,9 +53,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -87,6 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="1-1-Tutorial-Introduction"><a href="#1-1-Tutorial-Introduction" class="headerlink" title="1.1 Tutorial Introduction"></a>1.1 Tutorial Introduction</h2><p>欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.</p>
+<a id="more"></a>
 <!-- comment 原文：
 Welcome to the “Implementing a language with LLVM” tutorial. This tutorial runs through the implementation of a simple language, showing how fun and easy it can be. This tutorial will get you up and started as well as help to build a framework you can extend to other languages. The code in this tutorial can also be used as a playground to hack on other LLVM specific things.
 -->
@@ -207,7 +208,7 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjc8rj7w60000pa5iimki2npc" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjc9y8afx0000kq5ilt5elorw" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -217,7 +218,7 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
 <nav id="article-nav">
   
     <a href="/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           2. Kaleidoscope: Implementing a Parser and AST
@@ -227,7 +228,7 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
   
   
     <a href="/2018/01/10/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">Hello World</div>
     </a>
   
@@ -250,7 +251,7 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -260,9 +261,13 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/">3. Kaleidoscope: Code generation to LLVM IR</a>
+          </li>
         
           <li>
             <a href="/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/">2. Kaleidoscope: Implementing a Parser and AST</a>
@@ -289,7 +294,7 @@ Next: [Implementing a Parser and AST](http://llvm.org/docs/tutorial/LangImpl02.h
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 LiTong<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé par <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
