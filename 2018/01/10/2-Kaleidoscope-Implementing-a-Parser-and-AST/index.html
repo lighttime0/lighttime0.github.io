@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="LiTong&#39;s Blog">
 <meta property="og:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-01-11T07:55:51.000Z">
+<meta property="og:updated_time" content="2018-01-11T07:58:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2. Kaleidoscope: Implementing a Parser and AST">
 <meta name="twitter:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
@@ -54,9 +54,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -304,10 +304,10 @@ There is a lot of room for extension here. You can define new AST nodes, extend 
 Here is the complete code listing for this and the previous chapter. Note that it is fully self-contained: you don’t need LLVM or any external libraries at all for this. (Besides the C and C++ standard libraries, of course.) To build this, just compile with:
 -->
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Compile</span></span><br><span class="line">clang++ -g -O3 -std=c++11 toy.cpp</span><br><span class="line"><span class="comment"># Run</span></span><br><span class="line">./a.out</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>译者注1：原文档中的编译命令是<code>clang++ -g -O3 toy.cpp</code>，在Ubuntu 16.04的环境中测试会报出需要使用c++11的选项，需要加上<code>-std=c++11</code>才能顺利编译。</p>
-<p>译者注2：”llvm/ADT/STLExtras.h”是必须的，但这就需要LLVM的库函数了，并不像文档里所说的只需要C和C++标注库。</p>
-</blockquote>
+<ul>
+<li>译者注1：原文档中的编译命令是<code>clang++ -g -O3 toy.cpp</code>，在Ubuntu 16.04的环境中测试会报出需要使用c++11的选项，需要加上<code>-std=c++11</code>才能顺利编译。</li>
+<li>译者注2：”llvm/ADT/STLExtras.h”是必须的，但这就需要LLVM的库函数了，并不像文档里所说的只需要C和C++标注库。</li>
+</ul>
 <p>下面是代码：</p>
 <!--
 Here is the code:
@@ -317,7 +317,7 @@ Here is the code:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjca79i3f0001la5is3pc9i4w" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjca7dfsr0003lz5iezs7o12x" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -329,7 +329,7 @@ Here is the code:
 <nav id="article-nav">
   
     <a href="/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Récent</strong>
+      <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
           3. Kaleidoscope: Code generation to LLVM IR
@@ -339,7 +339,7 @@ Here is the code:
   
   
     <a href="/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
+      <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">1. Kaleidoscope: Tutorial Introduction and the Lexer</div>
     </a>
   
@@ -357,7 +357,7 @@ Here is the code:
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
     </div>
@@ -367,7 +367,7 @@ Here is the code:
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/LLVM-Tutorial/" style="font-size: 10px;">LLVM Tutorial</a>
     </div>
@@ -376,7 +376,7 @@ Here is the code:
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -386,7 +386,7 @@ Here is the code:
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
@@ -419,7 +419,7 @@ Here is the code:
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 LiTong<br>
-      Propulsé par <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
