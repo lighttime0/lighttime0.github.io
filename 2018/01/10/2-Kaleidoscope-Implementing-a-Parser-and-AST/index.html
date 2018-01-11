@@ -7,17 +7,18 @@
   
   <title>2. Kaleidoscope: Implementing a Parser and AST | LiTong&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2.1. Chapter 2 Introduction欢迎来到Chapter 2——”用LLVM实现一门程序语言“教程。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
+  <meta name="description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
+<meta name="keywords" content="LLVM Tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2. Kaleidoscope: Implementing a Parser and AST">
 <meta property="og:url" content="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/index.html">
 <meta property="og:site_name" content="LiTong&#39;s Blog">
-<meta property="og:description" content="2.1. Chapter 2 Introduction欢迎来到Chapter 2——”用LLVM实现一门程序语言“教程。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
-<meta property="og:locale" content="CN/ENG">
-<meta property="og:updated_time" content="2018-01-11T03:39:29.000Z">
+<meta property="og:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-01-11T07:55:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2. Kaleidoscope: Implementing a Parser and AST">
-<meta name="twitter:description" content="2.1. Chapter 2 Introduction欢迎来到Chapter 2——”用LLVM实现一门程序语言“教程。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。">
+<meta name="twitter:description" content="2.1. Chapter 2 Introduction欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的语法分析器。完成语法分析器后，我们将定义并构造抽象语法树 （AST）。  我们将结合Recursive Descent Parsing与Operator-Precedence Parsing 来对">
   
     <link rel="alternate" href="/atom.xml" title="LiTong&#39;s Blog" type="application/atom+xml">
   
@@ -86,8 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="2-1-Chapter-2-Introduction"><a href="#2-1-Chapter-2-Introduction" class="headerlink" title="2.1. Chapter 2 Introduction"></a>2.1. Chapter 2 Introduction</h2><p>欢迎来到Chapter 2——”用LLVM实现一门程序语言“教程。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的<a href="http://en.wikipedia.org/wiki/Parsing" target="_blank" rel="noopener">语法分析器</a>。完成语法分析器后，我们将定义并构造<a href="http://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">抽象语法树</a> （AST）。</p>
-<a id="more"></a>
+        <h2 id="2-1-Chapter-2-Introduction"><a href="#2-1-Chapter-2-Introduction" class="headerlink" title="2.1. Chapter 2 Introduction"></a>2.1. Chapter 2 Introduction</h2><p>欢迎来到”用LLVM实现一门程序语言“教程第2章。这一节会展示如何基于Chapter 1构造的词法分析器来为Kaleidoscope语言构造一个完整的<a href="http://en.wikipedia.org/wiki/Parsing" target="_blank" rel="noopener">语法分析器</a>。完成语法分析器后，我们将定义并构造<a href="http://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">抽象语法树</a> （AST）。</p>
 <!--
 Welcome to Chapter 2 of the “[Implementing a language with LLVM](http://llvm.org/docs/tutorial/index.html)” tutorial. This chapter shows you how to use the lexer, built in [Chapter 1](http://llvm.org/docs/tutorial/LangImpl01.html), to build a full parser for our Kaleidoscope language. Once we have a [parser](http://en.wikipedia.org/wiki/Parsing), we’ll define and build an [Abstract Syntax Tree](http://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST).
 -->
@@ -181,7 +181,7 @@ This function illustrates a number of interesting things about the parser:
 <!--
 The next simple production is for handling variable references and function calls:
 -->
-<figure class="highlight plain"><figcaption><span>identifierexpr</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">///   ::= identifier</span><br><span class="line">///   ::= identifier &apos;(&apos; expression* &apos;)&apos;</span><br><span class="line">static std::unique_ptr&lt;ExprAST&gt; ParseIdentifierExpr() &#123;</span><br><span class="line">  std::string IdName = IdentifierStr;</span><br><span class="line"></span><br><span class="line">  getNextToken();  // eat identifier.</span><br><span class="line"></span><br><span class="line">  if (CurTok != &apos;(&apos;) // Simple variable ref.</span><br><span class="line">    return llvm::make_unique&lt;VariableExprAST&gt;(IdName);</span><br><span class="line"></span><br><span class="line">  // Call.</span><br><span class="line">  getNextToken();  // eat (</span><br><span class="line">  std::vector&lt;std::unique_ptr&lt;ExprAST&gt;&gt; Args;</span><br><span class="line">  if (CurTok != &apos;)&apos;) &#123;</span><br><span class="line">    while (1) &#123;</span><br><span class="line">      if (auto Arg = ParseExpression())</span><br><span class="line">        Args.push_back(std::move(Arg));</span><br><span class="line">      else</span><br><span class="line">        return nullptr;</span><br><span class="line"></span><br><span class="line">      if (CurTok == &apos;)&apos;)</span><br><span class="line">        break;</span><br><span class="line"></span><br><span class="line">      if (CurTok != &apos;,&apos;)</span><br><span class="line">        return LogError(&quot;Expected &apos;)&apos; or &apos;,&apos; in argument list&quot;);</span><br><span class="line">      getNextToken();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Eat the &apos;)&apos;.</span><br><span class="line">  getNextToken();</span><br><span class="line"></span><br><span class="line">  return llvm::make_unique&lt;CallExprAST&gt;(IdName, std::move(Args));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// identifierexpr</span></span><br><span class="line"><span class="comment">///   ::= identifier</span></span><br><span class="line"><span class="comment">///   ::= identifier '(' expression* ')'</span></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt; ParseIdentifierExpr() &#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">string</span> IdName = IdentifierStr;</span><br><span class="line"></span><br><span class="line">  getNextToken();  <span class="comment">// eat identifier.</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (CurTok != <span class="string">'('</span>) <span class="comment">// Simple variable ref.</span></span><br><span class="line">    <span class="keyword">return</span> llvm::make_unique&lt;VariableExprAST&gt;(IdName);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Call.</span></span><br><span class="line">  getNextToken();  <span class="comment">// eat (</span></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt;&gt; Args;</span><br><span class="line">  <span class="keyword">if</span> (CurTok != <span class="string">')'</span>) &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">auto</span> Arg = ParseExpression())</span><br><span class="line">        Args.push_back(<span class="built_in">std</span>::move(Arg));</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (CurTok == <span class="string">')'</span>)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (CurTok != <span class="string">','</span>)</span><br><span class="line">        <span class="keyword">return</span> LogError(<span class="string">"Expected ')' or ',' in argument list"</span>);</span><br><span class="line">      getNextToken();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Eat the ')'.</span></span><br><span class="line">  getNextToken();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> llvm::make_unique&lt;CallExprAST&gt;(IdName, <span class="built_in">std</span>::move(Args));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码的风格和之前的代码一样（这段代码在当前token是<code>tok_identifier</code>时被调用）。这段代码同样有递归调用和错误处理部分。一个有意思的地方是，这段代码通过<em>look-ahead</em>的方法来判定当前的标识符是一个变量的引用还是一个函数调用。具体来说，就是往前多读一个token，看这个token是不是’(‘，如果不是，构造<code>VariableExprAST</code>节点；如果是，构造<code>CallExprAST</code>节点。现在，我们有了简单的对表达式进行语法分析的代码，可以把它们包装在一个函数中，这样就可以通过一个入口来进行语法分析。我们把这类表达式称为”primary”表达式，原因会在<a href="http://llvm.org/docs/tutorial/LangImpl6.html#user-defined-unary-operators" target="_blank" rel="noopener">后面的章节</a>里说明。为了对任意primary表达式进行语法分析，我们需要定义表达式的排序：</p>
 <!--
 This routine follows the same style as the other routines. (It expects to be called if the current token is a `tok_identifier` token). It also has recursion and error handling. One interesting aspect of this is that it uses *look-ahead* to determine if the current identifier is a stand alone variable reference or if it is a function call expression. It handles this by checking to see if the token after the identifier is a ‘(‘ token, constructing either a `VariableExprAST` or `CallExprAST` node as appropriate.
@@ -305,7 +305,8 @@ Here is the complete code listing for this and the previous chapter. Note that i
 -->
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Compile</span></span><br><span class="line">clang++ -g -O3 -std=c++11 toy.cpp</span><br><span class="line"><span class="comment"># Run</span></span><br><span class="line">./a.out</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>译者注1：原文档中的编译命令是<code>clang++ -g -O3 toy.cpp</code>，在Ubuntu 16.04的环境中测试会报出需要使用c++11的选项，需要加上<code>-std=c++11</code>才能顺利编译。<br>译者注2：”llvm/ADT/STLExtras.h”是必须的，但这就需要LLVM的库函数了，并不像文档里所说的只需要C和C++标注库。</p>
+<p>译者注1：原文档中的编译命令是<code>clang++ -g -O3 toy.cpp</code>，在Ubuntu 16.04的环境中测试会报出需要使用c++11的选项，需要加上<code>-std=c++11</code>才能顺利编译。</p>
+<p>译者注2：”llvm/ADT/STLExtras.h”是必须的，但这就需要LLVM的库函数了，并不像文档里所说的只需要C和C++标注库。</p>
 </blockquote>
 <p>下面是代码：</p>
 <!--
@@ -316,9 +317,11 @@ Here is the code:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjc9y8ag20002kq5in3qshhzj" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjca79i3f0001la5is3pc9i4w" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
+
     </footer>
   </div>
   
@@ -353,9 +356,23 @@ Here is the code:
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/LLVM-Tutorial/" style="font-size: 10px;">LLVM Tutorial</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
