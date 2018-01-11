@@ -56,7 +56,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -171,7 +171,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="title">foo</span><span class="params">(a)</span></span>;     <span class="meta"># ok, defines foo.</span></span><br><span class="line"><span class="function">def <span class="title">foo</span><span class="params">(b)</span> b</span>;      # Error: Unknown variable name. (decl <span class="keyword">using</span> <span class="string">'a'</span> takes precedence).</span><br></pre></td></tr></table></figure>
 <h2 id="3-5-Driver-Changes-and-Closing-Thoughts"><a href="#3-5-Driver-Changes-and-Closing-Thoughts" class="headerlink" title="3.5. Driver Changes and Closing Thoughts"></a>3.5. Driver Changes and Closing Thoughts</h2><p>至今为止，code generation to LLVM doesn’t really get us much，除了能看到优雅的IR调用。调用codegen将样例代码插入“<code>HandleDefinition</code>”、“<code>HandleExtern</code>”等函数，然后dumps out LLVM IR。这提供了一个查看简单函数的LLVM IR的很好的途径。举例来说：</p>
 <!-- For now, code generation to LLVM doesn’t really get us much, except that we can look at the pretty IR calls. The sample code inserts calls to codegen into the “`HandleDefinition`”, “`HandleExtern`” etc functions, and then dumps out the LLVM IR. This gives a nice way to look at the LLVM IR for simple functions. For example: -->
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ready&gt; 4+5;</span><br><span class="line">Read top-level expression:</span><br><span class="line">define double @<span class="function">0</span>() &#123;</span><br><span class="line">entry:</span><br><span class="line">  ret double 9.000000e+00</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ready&gt; 4+5;</span><br><span class="line">Read top-level expression:</span><br><span class="line">define double @<span class="function"><span class="title">0</span></span>() &#123;</span><br><span class="line">entry:</span><br><span class="line">  ret double 9.000000e+00</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意语法分析器是如何将顶层表达式为我们转换成匿名函数的。这一特性在下一章我们增加<a href="https://releases.llvm.org/5.0.0/docs/tutorial/LangImpl4.html#adding-a-jit-compiler" target="_blank" rel="noopener">JIT support</a>时非常好用。同时，注意代码基本是直接翻译过来的，没有怎么优化，除了IRBuilder做的简单的constant folding。我们将会在下一章明确地<a href="https://releases.llvm.org/5.0.0/docs/tutorial/LangImpl4.html#trivial-constant-folding" target="_blank" rel="noopener">add optimizations</a>。</p>
 <!-- Note how the parser turns the top-level expression into anonymous functions for us. This will be handy when we add [JIT support](https://releases.llvm.org/5.0.0/docs/tutorial/LangImpl4.html#adding-a-jit-compiler) in the next chapter. Also note that the code is very literally transcribed, no optimizations are being performed except simple constant folding done by IRBuilder. We will [add optimizations](https://releases.llvm.org/5.0.0/docs/tutorial/LangImpl4.html#trivial-constant-folding) explicitly in the next chapter. -->
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ready&gt; def foo(a b) a*a + 2*a*b + b*b;</span><br><span class="line">Read <span class="keyword">function</span> definition:</span><br><span class="line">define double @foo(double %a, double %b) &#123;</span><br><span class="line">entry:</span><br><span class="line">  %multmp = fmul double %a, %a</span><br><span class="line">  %multmp1 = fmul double 2.000000e+00, %a</span><br><span class="line">  %multmp2 = fmul double %multmp1, %b</span><br><span class="line">  %addtmp = fadd double %multmp, %multmp2</span><br><span class="line">  %multmp3 = fmul double %b, %b</span><br><span class="line">  %addtmp4 = fadd double %addtmp, %multmp3</span><br><span class="line">  ret double %addtmp4</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -198,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/" data-id="cjca7g61b0004mt5ietwnsvu1" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/" data-id="cjcaj403200070d5ieznhma2z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -209,9 +209,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          4. Kaleidoscope: Adding JIT and Optimizer Support
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">2. Kaleidoscope: Implementing a Parser and AST</div>
     </a>
   
@@ -248,7 +257,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -258,9 +267,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/">4. Kaleidoscope: Adding JIT and Optimizer Support</a>
+          </li>
         
           <li>
             <a href="/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/">3. Kaleidoscope: Code generation to LLVM IR</a>
