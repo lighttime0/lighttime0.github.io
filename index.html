@@ -51,7 +51,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,49 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-5-Kaleidoscope-Extending-the-Language-Control-Flow" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/" class="article-date">
+  <time datetime="2018-01-12T03:12:56.000Z" itemprop="datePublished">2018-01-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/">5. Kaleidoscope: Extending the Language: Control Flow</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="5-1-Chapter-5-Introduction"><a href="#5-1-Chapter-5-Introduction" class="headerlink" title="5.1. Chapter 5 Introduction"></a>5.1. Chapter 5 Introduction</h2><p>欢迎来到“<a href="https://releases.llvm.org/5.0.0/docs/tutorial/index.html" target="_blank" rel="noopener">用LLVM实现一门编程语言</a>”教程第5章。第1-4章介绍了简单Kaleidoscope语言的实现，并增加了生成LLVM IR的支持，以及优化器和JIT编译器。不幸的是，正如所展现的那样，Kaleidoscope用处并不大：它除了函数调用和返回以外，没有控制流。这意味着你的代码中不能有条件分支，这严重限制了代码的能力。在这一章，我们将扩展Kaleidoscope，让它可以处理if/then/else表达式，以及简单的‘for’循环。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/" data-id="cjcbcm8nd000ddo5i53vapxdf" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-4-Kaleidoscope-Adding-JIT-and-Optimizer-Support" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -93,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/" data-id="cjcb8rx8a0008qk5ixozbt05u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/" data-id="cjcbcm8n30008do5izlh89hoj" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -136,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/" data-id="cjcb8rx8b000aqk5ij20fdj09" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/11/3-Kaleidoscope-Code-generation-to-LLVM-IR/" data-id="cjcbcm8n00005do5ilyg1466k" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -179,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjcb8rx890007qk5i9qr1bwe2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/" data-id="cjcbcm8mz0004do5igfrbfj2q" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -222,63 +265,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjcb8rx7d0001qk5ikmpaxsb7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjcbcm8mt0001do5i2t0adyhg" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/10/hello-world/" class="article-date">
-  <time datetime="2018-01-10T07:09:19.000Z" itemprop="datePublished">2018-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Here is my blog. </p>
-<p>My name is Li,Tong.</p>
-<!-- Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
-
-## Quick Start
-
-### Create a new post
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a>  –&gt;</p>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjcb8rx870006qk5i26kv8jf1" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -325,11 +316,63 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/0-Kaleidoscope-Implementing-a-Language-with-LLVM/" data-id="cjcb8rx760000qk5ifibsf7j1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/10/0-Kaleidoscope-Implementing-a-Language-with-LLVM/" data-id="cjcbcm8mp0000do5i9fc7f2fi" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/10/hello-world/" class="article-date">
+  <time datetime="2018-01-10T00:22:41.000Z" itemprop="datePublished">2018-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/10/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Here is my blog. </p>
+<p>My name is Li,Tong.</p>
+<!-- Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+
+## Quick Start
+
+### Create a new post
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a>  –&gt;</p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/10/hello-world/" data-id="cjcbcm8mx0003do5iclpzaxt3" class="article-share-link">Teilen</a>
+      
+      
     </footer>
   </div>
   
@@ -367,7 +410,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -377,9 +420,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/">5. Kaleidoscope: Extending the Language: Control Flow</a>
+          </li>
         
           <li>
             <a href="/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/">4. Kaleidoscope: Adding JIT and Optimizer Support</a>
@@ -395,10 +442,6 @@
         
           <li>
             <a href="/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/">1. Kaleidoscope: Tutorial Introduction and the Lexer</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/10/hello-world/">Hello World</a>
           </li>
         
       </ul>
