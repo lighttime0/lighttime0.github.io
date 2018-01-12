@@ -16,7 +16,7 @@
 <meta property="og:description" content="5.1. Chapter 5 Introduction欢迎来到“用LLVM实现一门编程语言”教程第5章。第1-4章介绍了简单Kaleidoscope语言的实现，并增加了生成LLVM IR的支持，以及优化器和JIT编译器。不幸的是，正如所展现的那样，Kaleidoscope用处并不大：它除了函数调用和返回以外，没有控制流。这意味着你的代码中不能有条件分支，这严重限制了代码的能力。在这一章，我们将扩展">
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="http://oy60g0sqx.bkt.clouddn.com/2018-01-10-LangImpl05-cfg.png">
-<meta property="og:updated_time" content="2018-01-12T03:13:42.000Z">
+<meta property="og:updated_time" content="2018-01-12T03:24:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="5. Kaleidoscope: Extending the Language: Control Flow">
 <meta name="twitter:description" content="5.1. Chapter 5 Introduction欢迎来到“用LLVM实现一门编程语言”教程第5章。第1-4章介绍了简单Kaleidoscope语言的实现，并增加了生成LLVM IR的支持，以及优化器和JIT编译器。不幸的是，正如所展现的那样，Kaleidoscope用处并不大：它除了函数调用和返回以外，没有控制流。这意味着你的代码中不能有条件分支，这严重限制了代码的能力。在这一章，我们将扩展">
@@ -108,7 +108,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// control</span></span><br><span class="line">tok_if = <span class="number">-6</span>,</span><br><span class="line">tok_then = <span class="number">-7</span>,</span><br><span class="line">tok_else = <span class="number">-8</span>,</span><br></pre></td></tr></table></figure>
 <p>有了这个以后，我们就可以在词法分析器中识别新的关键字（keyword）。接下来就是很平常的工作：</p>
 <!-- Once we have that, we recognize the new keywords in the lexer. This is pretty simple stuff: -->
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">if (IdentifierStr == &quot;def&quot;)</span><br><span class="line">  return tok_def;</span><br><span class="line">if (IdentifierStr == &quot;extern&quot;)</span><br><span class="line">  return tok_extern;</span><br><span class="line">if (IdentifierStr == &quot;if&quot;)</span><br><span class="line">  return tok_if;</span><br><span class="line">if (IdentifierStr == &quot;then&quot;)</span><br><span class="line">  return tok_then;</span><br><span class="line">if (IdentifierStr == &quot;else&quot;)</span><br><span class="line">  return tok_else;</span><br><span class="line">return tok_identifier;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (IdentifierStr == <span class="string">"def"</span>)</span><br><span class="line">  <span class="keyword">return</span> tok_def;</span><br><span class="line"><span class="keyword">if</span> (IdentifierStr == <span class="string">"extern"</span>)</span><br><span class="line">  <span class="keyword">return</span> tok_extern;</span><br><span class="line"><span class="keyword">if</span> (IdentifierStr == <span class="string">"if"</span>)</span><br><span class="line">  <span class="keyword">return</span> tok_if;</span><br><span class="line"><span class="keyword">if</span> (IdentifierStr == <span class="string">"then"</span>)</span><br><span class="line">  <span class="keyword">return</span> tok_then;</span><br><span class="line"><span class="keyword">if</span> (IdentifierStr == <span class="string">"else"</span>)</span><br><span class="line">  <span class="keyword">return</span> tok_else;</span><br><span class="line"><span class="keyword">return</span> tok_identifier;</span><br></pre></td></tr></table></figure>
 <h3 id="5-2-2-AST-Extensions-for-If-Then-Else"><a href="#5-2-2-AST-Extensions-for-If-Then-Else" class="headerlink" title="5.2.2. AST Extensions for If/Then/Else"></a>5.2.2. AST Extensions for If/Then/Else</h3><p>为了表示新的表达式，我们为它增加了新的AST节点：</p>
 <!-- To represent the new expression we add a new AST node for it: -->
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// IfExprAST - Expression class for if/then/else.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IfExprAST</span> :</span> <span class="keyword">public</span> ExprAST &#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt; Cond, Then, Else;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  IfExprAST(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt; Cond, <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt; Then,</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ExprAST&gt; Else)</span><br><span class="line">    : Cond(<span class="built_in">std</span>::move(Cond)), Then(<span class="built_in">std</span>::move(Then)), Else(<span class="built_in">std</span>::move(Else)) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">Value *<span class="title">codegen</span><span class="params">()</span> override</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -130,7 +130,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">declare double @foo()</span><br><span class="line"></span><br><span class="line">declare double @bar()</span><br><span class="line"></span><br><span class="line">define double @baz(double %x) &#123;</span><br><span class="line">entry:</span><br><span class="line">  %ifcond = fcmp one double %x, 0.000000e+00</span><br><span class="line">  br i1 %ifcond, label %then, label %else</span><br><span class="line"></span><br><span class="line">then:       ; preds = %entry</span><br><span class="line">  %calltmp = call double @foo()</span><br><span class="line">  br label %ifcont</span><br><span class="line"></span><br><span class="line">else:       ; preds = %entry</span><br><span class="line">  %calltmp1 = call double @bar()</span><br><span class="line">  br label %ifcont</span><br><span class="line"></span><br><span class="line">ifcont:     ; preds = %else, %then</span><br><span class="line">  %iftmp = phi double [ %calltmp, %then ], [ %calltmp1, %else ]</span><br><span class="line">  ret double %iftmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果想看直观的控制流图，你可以使用LLVM的一个很有用的工具：‘<a href="http://llvm.org/cmds/opt.html" target="_blank" rel="noopener">opt</a>‘ tool。将这些LLVM IR保存到“t.ll”文件中，执行“<code>llvm-as &lt; t.ll | opt -analyze -view-cfg</code>”命令，<a href="https://releases.llvm.org/5.0.0/docs/ProgrammersManual.html#viewing-graphs-while-debugging-code" target="_blank" rel="noopener">将会弹出一个窗口</a>，你将会看到这幅图：</p>
 <!-- To visualize the control flow graph, you can use a nifty feature of the LLVM ‘[opt](http://llvm.org/cmds/opt.html)‘ tool. If you put this LLVM IR into “t.ll” and run “`llvm-as < t.ll | opt -analyze -view-cfg`”, [a window will pop up](https://releases.llvm.org/5.0.0/docs/ProgrammersManual.html#viewing-graphs-while-debugging-code) and you’ll see this graph: -->
-<p><img src="http://oy60g0sqx.bkt.clouddn.com/2018-01-10-LangImpl05-cfg.png" alt="LangImpl05-cfg"></p>
+<p><img src="http://oy60g0sqx.bkt.clouddn.com/2018-01-10-LangImpl05-cfg.png" alt="Example CFG"></p>
 <p>获取这幅图的另一个方法是调用“<code>F-&gt;viewCFG()</code>”或者“<code>F-&gt;viewCFGOnly()</code>”（这里的F是一个函数指针“<code>Function*</code>”）中的一个，插入到代码中并重新编译，或者在debugger中调用它们。LLVM有很多很好的特性，可以将不同的图可视化。</p>
 <!-- Another way to get this is to call “`F->viewCFG()`” or “`F->viewCFGOnly()`” (where F is a “`Function*`”) either by inserting actual calls into the code and recompiling or by calling these in the debugger. LLVM has many nice features for visualizing various graphs. -->
 <p>再回到生成的代码，代码是比较简单的：entry block计算条件表达式（在这个例子中是“x”），用“<code>fcmp one</code>”指令将计算的结果和0.0比较（‘one’表示“Ordered and Not Equal”）。基于这个表达式的计算结果，代码将跳转到包含了true/false情况下要计算的表达式的“then”或者“else” bolcks。</p>
@@ -243,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/" data-id="cjcbcm8nd000ddo5i53vapxdf" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/" data-id="cjcbx21ly000fwp5ip8kgauy9" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
@@ -253,6 +253,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/01/12/6-Kaleidoscope-Extending-the-Language-User-defined-Operators/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          6. Kaleidoscope: Extending the Language: User-defined Operators
+        
+      </div>
+    </a>
   
   
     <a href="/2018/01/11/4-Kaleidoscope-Adding-JIT-and-Optimizer-Support/" id="article-nav-older" class="article-nav-link-wrap">
@@ -308,6 +317,10 @@
       <ul>
         
           <li>
+            <a href="/2018/01/12/6-Kaleidoscope-Extending-the-Language-User-defined-Operators/">6. Kaleidoscope: Extending the Language: User-defined Operators</a>
+          </li>
+        
+          <li>
             <a href="/2018/01/12/5-Kaleidoscope-Extending-the-Language-Control-Flow/">5. Kaleidoscope: Extending the Language: Control Flow</a>
           </li>
         
@@ -321,10 +334,6 @@
         
           <li>
             <a href="/2018/01/10/2-Kaleidoscope-Implementing-a-Parser-and-AST/">2. Kaleidoscope: Implementing a Parser and AST</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/">1. Kaleidoscope: Tutorial Introduction and the Lexer</a>
           </li>
         
       </ul>
