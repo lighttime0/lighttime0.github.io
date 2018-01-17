@@ -7,18 +7,18 @@
   
   <title>6. Kaleidoscope: Extending the Language: User-defined Operators | LiTong&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及出了小于以外的任何二元比较运算符）。">
+  <meta name="description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及除了小于以外的任何二元比较运算符）。">
 <meta name="keywords" content="LLVM Tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6. Kaleidoscope: Extending the Language: User-defined Operators">
 <meta property="og:url" content="http://yoursite.com/2018/01/12/6-Kaleidoscope-Extending-the-Language-User-defined-Operators/index.html">
 <meta property="og:site_name" content="LiTong&#39;s Blog">
-<meta property="og:description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及出了小于以外的任何二元比较运算符）。">
+<meta property="og:description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及除了小于以外的任何二元比较运算符）。">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-01-12T12:45:47.000Z">
+<meta property="og:updated_time" content="2018-01-12T12:50:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="6. Kaleidoscope: Extending the Language: User-defined Operators">
-<meta name="twitter:description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及出了小于以外的任何二元比较运算符）。">
+<meta name="twitter:description" content="6.1. Chapter 6 Introduction欢迎来到“用LLVM实现一门编程语言”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及除了小于以外的任何二元比较运算符）。">
   
     <link rel="alternate" href="/atom.xml" title="LiTong&#39;s Blog" type="application/atom+xml">
   
@@ -87,7 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="6-1-Chapter-6-Introduction"><a href="#6-1-Chapter-6-Introduction" class="headerlink" title="6.1. Chapter 6 Introduction"></a>6.1. Chapter 6 Introduction</h2><p>欢迎来到“<a href="https://releases.llvm.org/5.0.0/docs/tutorial/index.html" target="_blank" rel="noopener">用LLVM实现一门编程语言</a>”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及出了小于以外的任何二元比较运算符）。</p>
+        <h2 id="6-1-Chapter-6-Introduction"><a href="#6-1-Chapter-6-Introduction" class="headerlink" title="6.1. Chapter 6 Introduction"></a>6.1. Chapter 6 Introduction</h2><p>欢迎来到“<a href="https://releases.llvm.org/5.0.0/docs/tutorial/index.html" target="_blank" rel="noopener">用LLVM实现一门编程语言</a>”教程第6章。教程到了现在，我们已经有了一个函数式的编程语言，虽然它的功能很少，但已经可以使用了。然而，还有一个很大的问题没有解决。我们的语言目前缺少很多有用的运算符（比如除法、逻辑否，以及除了小于以外的任何二元比较运算符）。</p>
 <a id="more"></a>
 <!-- Welcome to Chapter 6 of the “[Implementing a language with LLVM](https://releases.llvm.org/5.0.0/docs/tutorial/index.html)” tutorial. At this point in our tutorial, we now have a fully functional language that is fairly minimal, but also useful. There is still one big problem with it, however. Our language doesn’t have many useful operators (like division, logical negation, or even any comparisons besides less-than). -->
 <p>这一章将会增加用户定义的运算符，这使得Kaleidoscope不再那么简洁和优雅。某种程度上来说，这一章的改变将带给我们一门简洁丑陋的语言，但同时也是一门强大的语言。创建你自己的编程语言的一个好处是你可以决定什么好，什么不好。在我们的教程中我们将用这种方式来展示有趣的语法分析技术。</p>
@@ -179,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/12/6-Kaleidoscope-Extending-the-Language-User-defined-Operators/" data-id="cjcbx21lx000ewp5i0ws9x2zu" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/12/6-Kaleidoscope-Extending-the-Language-User-defined-Operators/" data-id="cjcihjgde000e8s5iyzo1elq3" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>

@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="LiTong&#39;s Blog">
 <meta property="og:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-01-11T08:00:13.000Z">
+<meta property="og:updated_time" content="2018-01-17T03:04:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1. Kaleidoscope: Tutorial Introduction and the Lexer">
 <meta name="twitter:description" content="1.1 Tutorial Introduction欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.">
@@ -87,7 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-1-Tutorial-Introduction"><a href="#1-1-Tutorial-Introduction" class="headerlink" title="1.1 Tutorial Introduction"></a>1.1 Tutorial Introduction</h2><p>欢迎来到“用LLVM实现一门语言”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.</p>
+        <h2 id="1-1-Tutorial-Introduction"><a href="#1-1-Tutorial-Introduction" class="headerlink" title="1.1 Tutorial Introduction"></a>1.1 Tutorial Introduction</h2><p>欢迎来到“<a href="https://releases.llvm.org/5.0.0/docs/tutorial/index.html" target="_blank" rel="noopener">用LLVM实现一门语言</a>”教程。本教程完整展示了实现一门简单高级语言的过程，展现了LLVM的fun和easy。这个教程会帮你开始使用LLVM，并构建一个语言的框架，以后可以扩展到其他语言。教程里的代码也可以作为a playground to hack on other LLVM specific things.</p>
 <a id="more"></a>
 <!-- comment 原文：
 Welcome to the “Implementing a language with LLVM” tutorial. This tutorial runs through the implementation of a simple language, showing how fun and easy it can be. This tutorial will get you up and started as well as help to build a framework you can extend to other languages. The code in this tutorial can also be used as a playground to hack on other LLVM specific things.
@@ -146,12 +146,12 @@ This tutorial will be illustrated with a toy language that we’ll call "[Kaleid
 Because we want to keep things simple, the only datatype in Kaleidoscope is a 64-bit floating point type (aka ‘double’ in C parlance). As such, all values are implicitly double precision and the language doesn’t require type declarations. This gives the language a very nice and simple syntax. For example, the following simple example computes [Fibonacci numbers](http://en.wikipedia.org/wiki/Fibonacci_number):
 -->
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Compute the x&apos;th fibonacci number.</span><br><span class="line">def fib(x)</span><br><span class="line">  if x &lt; 3 then</span><br><span class="line">    1</span><br><span class="line">  else</span><br><span class="line">    fib(x-1)+fib(x-2)</span><br><span class="line"></span><br><span class="line"># This expression will compute the 40th number.</span><br><span class="line">fib(40)</span><br></pre></td></tr></table></figure>
-<p>Kaleidoscope可以调用标准库中的函数（LLVM JIT让实现这个特性变得颇为简单）。这意味着你可以使用’<code>extern</code>‘关键字，在你使用之前去定义函数（这一点对mutually recursive functions也很有用）。For example:</p>
+<p>Kaleidoscope可以调用标准库中的函数（LLVM JIT让实现这个特性变得颇为简单）。这意味着你可以使用’<code>extern</code>‘关键字，在你使用之前去定义函数（这一点对mutually recursive functions也很有用）。举个例子:</p>
 <!--comment
 We also allow Kaleidoscope to call into standard library functions (the LLVM JIT makes this completely trivial). This means that you can use the ‘extern’ keyword to define a function before you use it (this is also useful for mutually recursive functions). For example:
 -->
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extern sin(arg);</span><br><span class="line">extern cos(arg);</span><br><span class="line">extern atan2(arg1 arg2);</span><br><span class="line"></span><br><span class="line">atan2(sin(.4), cos(42))</span><br></pre></td></tr></table></figure>
-<p>在Chapter 6有一个更有趣的例子——我们用Kaleidoscope写了一个<a href="http://llvm.org/docs/tutorial/LangImpl06.html#kicking-the-tires" target="_blank" rel="noopener">displays a Mandelbrot Set</a> at various levels of magnification的小程序。</p>
+<p>在第6章有一个更有趣的例子——我们用Kaleidoscope写了一个<a href="http://llvm.org/docs/tutorial/LangImpl06.html#kicking-the-tires" target="_blank" rel="noopener">displays a Mandelbrot Set</a> at various levels of magnification的小程序。</p>
 <!-- comment
 A more interesting example is included in Chapter 6 where we write a little Kaleidoscope application that [displays a Mandelbrot Set](http://llvm.org/docs/tutorial/LangImpl06.html#kicking-the-tires) at various levels of magnification.
 -->
@@ -160,15 +160,18 @@ A more interesting example is included in Chapter 6 where we write a little Kale
 Lets dive into the implementation of this language!
 -->
 <h2 id="1-3-The-Lexer"><a href="#1-3-The-Lexer" class="headerlink" title="1.3. The Lexer"></a>1.3. The Lexer</h2><p>实现一门程序语言的首要任务是处理文本文件，识别代码的内容。做这件事的传统方法是使用<a href="http://en.wikipedia.org/wiki/Lexical_analysis" target="_blank" rel="noopener">lexer</a>（也称为”scanner”），来将输入分割成”tokens”。每个token包含了一个token码，可能还包含一些metadata（比如数字的数值）。首先，我们定义所有可能的token：</p>
+<ul>
+<li>（译者注）metadata : Information that describes other information in order to help you understand or use it.</li>
+</ul>
 <!-- comment
 When it comes to implementing a language, the first thing needed is the ability to process a text file and recognize what it says. The traditional way to do this is to use a “[lexer](http://en.wikipedia.org/wiki/Lexical_analysis)” (aka ‘scanner’) to break the input up into “tokens”. Each token returned by the lexer includes a token code and potentially some metadata (e.g. the numeric value of a number). First, we define the possibilities:
 -->
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The lexer returns tokens [0-255] if it is an unknown character, otherwise one</span></span><br><span class="line"><span class="comment">// of these for known things.</span></span><br><span class="line"><span class="keyword">enum</span> Token &#123;</span><br><span class="line">  tok_eof = <span class="number">-1</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// commands</span></span><br><span class="line">  tok_def = <span class="number">-2</span>,</span><br><span class="line">  tok_extern = <span class="number">-3</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// primary</span></span><br><span class="line">  tok_identifier = <span class="number">-4</span>,</span><br><span class="line">  tok_number = <span class="number">-5</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">string</span> IdentifierStr; <span class="comment">// Filled in if tok_identifier</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">double</span> NumVal;             <span class="comment">// Filled in if tok_number</span></span><br></pre></td></tr></table></figure>
-<p>lexer返回的每个token，要么是Token enum values中的一个，要么是一个”未知的“字符比如‘+’（返回的是它的ASCII值）。如果正在处理的token是一个标识符，全局变量<code>IdentifierStr</code>会保存这个标识符的名字。如果正在处理的token是一个数值量（比如1.0），<code>NumVal</code>会保存它的值。需要注意的是，简单起见，我们在这里使用全局变量，而在真正的程序语言实现中，这不是一个好的选择。</p>
+<p>lexer返回的每个token，要么是Token枚举值中的一个，要么是一个“未知的”字符比如‘+’（返回的是它的ASCII值）。如果正在处理的token是一个标识符，全局变量<code>IdentifierStr</code>会保存这个标识符的名字。如果正在处理的token是一个数值量（比如1.0），<code>NumVal</code>会保存它的值。需要注意的是，简单起见，我们在这里使用全局变量，而在真正的程序语言实现中，这不是一个好的选择。</p>
 <!-- comment
 Each token returned by our lexer will either be one of the Token enum values or it will be an ‘unknown’ character like ‘+’, which is returned as its ASCII value. If the current token is an identifier, the `IdentifierStr` global variable holds the name of the identifier. If the current token is a numeric literal (like 1.0), `NumVal` holds its value. Note that we use global variables for simplicity, this is not the best choice for a real language implementation :).
 -->
-<p>lexer的实现是一个名为<code>gettok</code>的函数，这个函数读入standard input，返回下一个token。函数的开头部分如下：</p>
+<p>lexer的实现是一个名为<code>gettok</code>的函数，这个函数读入standard input，并返回下一个token。函数的开头部分如下：</p>
 <!-- comment
 The actual implementation of the lexer is a single function named `gettok`. The `gettok` function is called to return the next token from standard input. Its definition starts as:
 -->
@@ -182,7 +185,7 @@ The actual implementation of the lexer is a single function named `gettok`. The 
 The next thing `gettok` needs to do is recognize identifiers and specific keywords like “def”. Kaleidoscope does this with this simple loop:
 -->
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">isalpha</span>(LastChar)) &#123; <span class="comment">// identifier: [a-zA-Z][a-zA-Z0-9]*</span></span><br><span class="line">  IdentifierStr = LastChar;</span><br><span class="line">  <span class="keyword">while</span> (<span class="built_in">isalnum</span>((LastChar = getchar())))</span><br><span class="line">    IdentifierStr += LastChar;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (IdentifierStr == <span class="string">"def"</span>)</span><br><span class="line">    <span class="keyword">return</span> tok_def;</span><br><span class="line">  <span class="keyword">if</span> (IdentifierStr == <span class="string">"extern"</span>)</span><br><span class="line">    <span class="keyword">return</span> tok_extern;</span><br><span class="line">  <span class="keyword">return</span> tok_identifier;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码在识别出一个标识符后，对全局变量<code>IdentifierStr</code>赋值。同样的，程序语言的关键字会在同一个循环里被识别出来。数字常量的识别和标识符识别类似：</p>
+<p>这段代码在识别出一个标识符后，会设置全局变量<code>IdentifierStr</code>的值。同样的，程序语言的关键字会在同一个循环里被识别出来。数字的识别和标识符的识别类似：</p>
 <!-- comment
 Note that this code sets the ‘`IdentifierStr`‘ global whenever it lexes an identifier. Also, since language keywords are matched by the same loop, we handle them here inline. Numeric values are similar:
 -->
@@ -197,15 +200,14 @@ This is all pretty straight-forward code for processing input. When reading a nu
 We handle comments by skipping to the end of the line and then return the next token. Finally, if the input doesn’t match one of the above cases, it is either an operator character like ‘+’ or the end of the file. These are handled with this code:
 -->
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// Check for end of file.  Don't eat the EOF.</span></span><br><span class="line">  <span class="keyword">if</span> (LastChar == EOF)</span><br><span class="line">    <span class="keyword">return</span> tok_eof;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Otherwise, just return the character as its ascii value.</span></span><br><span class="line">  <span class="keyword">int</span> ThisChar = LastChar;</span><br><span class="line">  LastChar = getchar();</span><br><span class="line">  <span class="keyword">return</span> ThisChar;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样一来，我们就基本完成了Kaleidoscope语言的lexer（Lexer的<a href="http://llvm.org/docs/tutorial/LangImpl02.html#full-code-listing" target="_blank" rel="noopener">完整代码列表</a>在下一节。<a href="http://llvm.org/docs/tutorial/LangImpl02.html" target="_blank" rel="noopener">在这里</a>）。接下来，我们将构造一个简单的语法分析器，然后构造一个抽象语法树。完成这些之后，我们会引入一个driver，可以将词法分析器和语法分析器一起使用。</p>
+<p>这样一来，我们就基本完成了Kaleidoscope语言的lexer（Lexer的<a href="http://llvm.org/docs/tutorial/LangImpl02.html#full-code-listing" target="_blank" rel="noopener">完整代码列表</a>在<a href="http://llvm.org/docs/tutorial/LangImpl02.html" target="_blank" rel="noopener">下一节</a>）。接下来，我们将<a href="http://llvm.org/docs/tutorial/LangImpl02.html" target="_blank" rel="noopener">构造一个简单的语法分析器</a>，然后构造一个抽象语法树。完成这些之后，我们会引入一个driver，可以将词法分析器和语法分析器一起使用。</p>
 <!--
 With this, we have the complete lexer for the basic Kaleidoscope language (the [full code listing](http://llvm.org/docs/tutorial/LangImpl02.html#full-code-listing) for the Lexer is available in the [next chapter](http://llvm.org/docs/tutorial/LangImpl02.html) of the tutorial). Next we’ll [build a simple parser that uses this to build an Abstract Syntax Tree](http://llvm.org/docs/tutorial/LangImpl02.html). When we have that, we’ll include a driver so that you can use the lexer and parser together.
 -->
-
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjcbx21la0001wp5ixcs066d4" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/01/10/1-Kaleidoscope-Tutorial-Introduction-and-the-Lexer/" data-id="cjcihjgcp00018s5i3sdsqi4w" class="article-share-link">Teilen</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLVM-Tutorial/">LLVM Tutorial</a></li></ul>
